@@ -10,11 +10,12 @@ def load_system(path: pathlib.Path) -> tuple[list[list[float]], list[float]]:
     with open(path, 'r') as f:
         for line in f:
             sistem = line.split()
-            # print(sistem)
-            B.append(sistem[-1])
-            coef_x = 0
-            coef_y = 0
-            coef_z = 0
+
+            B.append(float(sistem[-1]))
+
+            coef_x = 0.0
+            coef_y = 0.0
+            coef_z = 0.0
 
             semn_poz = 1
             for token in sistem:
@@ -27,27 +28,27 @@ def load_system(path: pathlib.Path) -> tuple[list[list[float]], list[float]]:
                 elif 'x' in token:
                     num = token.replace('x', '')
                     if num == '' or num == '+':
-                        coef_x = 1 * semn_poz
+                        coef_x = 1.0 * semn_poz
                     elif num == '-':
-                        coef_x = -1 * semn_poz
+                        coef_x = -1.0 * semn_poz
                     else:
-                        coef_x = num * semn_poz
+                        coef_x = float(num) * semn_poz
                 elif 'y' in token:
                     num = token.replace('y', '')
                     if num == '' or num == '+':
-                        coef_y = 1 * semn_poz
+                        coef_y = 1.0 * semn_poz
                     elif num == '-':
-                        coef_y = -1 * semn_poz
+                        coef_y = -1.0 * semn_poz
                     else:
-                        coef_y = num * semn_poz
+                        coef_y = float(num) * semn_poz
                 elif 'z' in token:
                     num = token.replace('z', '')
                     if num == '' or num == '+':
-                        coef_z = 1 * semn_poz
+                        coef_z = 1.0 * semn_poz
                     elif num == '-':
-                        coef_z = -1 * semn_poz
+                        coef_z = -1.0 * semn_poz
                     else:
-                        coef_z = num * semn_poz
+                        coef_z = float(num) * semn_poz
 
             A.append([coef_x, coef_y, coef_z])
 
@@ -113,14 +114,14 @@ def multiply(matrix: list[list[float]], vector: list[float]) -> list[float]:
         result.append(suma)
 
     return result
+#
+# A = [[1, 5, 6], [6, 3, 6], [7, 10, 9]]
+# B = [5, 6, 7]
 
-A = [[1, 5, 6], [6, 3, 6], [7, 10, 9]]
-B = [5, 6, 7]
-
-print(f"Matricea A:")
-for row in A:
-    print(row)
-print(f"\nVectorul B: {B}\n")
+# print(f"Matricea A:")
+# for row in A:
+#     print(row)
+# print(f"\nVectorul B: {B}\n")
 
 print(f"determinant(A) = {determinant(A)}")
 print(f"trace(A) = {trace(A)}")
@@ -219,8 +220,8 @@ def solve(matrix: list[list[float]], vector: list[float]) -> list[float]:
 
     det_A = a11 * (a22 * a33 - a23 * a32) - a12 * (a21 * a33 - a23 * a31) + a13 * (a21 * a32 - a22 * a31)
     adj_A = adjoint(matrix)
-    inversa = []
 
+    inversa = []
     for i in range(len(adj_A)):
         rand = []
         for j in range(len(adj_A[0])):
@@ -233,12 +234,7 @@ def solve(matrix: list[list[float]], vector: list[float]) -> list[float]:
         for j in range(len(vector)):
             suma += inversa[i][j] * vector[j]
         solutie.append(suma)
-
     return solutie
-
-
-A = [[2, 3, -1], [1, -1, 4], [3, 1, 2]]
-B = [5, 6, 7]
 
 # print(f"minor(A, 0, 0) = {minor(A, 0, 0)}")
 # print(f"cofactor(A) = {cofactor(A)}")
